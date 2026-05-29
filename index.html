@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Finance — Kiến Thức Tài Chính Cá Nhân</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0D0F0E;
+  --surface: #141716;
+  --card: #1A1D1C;
+  --card2: #1F2322;
+  --border: #2A2E2C;
+  --border2: #333837;
+  --text: #E8EAE9;
+  --text-soft: #9AA09D;
+  --text-muted: #5A6360;
+  --gold: #C9A84C;
+  --gold-light: #E8C87A;
+  --gold-dim: #4A3C1A;
+  --green: #4CAF7D;
+  --green-dim: #1A3328;
+  --green-soft: #2A5040;
+  --red: #E05555;
+  --red-dim: #3A1818;
+  --blue: #5B9BD5;
+  --blue-dim: #1A2D45;
+  --teal: #3BB3A0;
+  --teal-dim: #1A3530;
+  --amber: #E8903A;
+  --amber-dim: #3D2610;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── LAYOUT ── */
+.app { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.logo-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.logo-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.sidebar-nav { padding: 16px 0; flex: 1; }
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 24px 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  cursor: pointer;
+  transition: all 0.18s;
+  border-left: 2px solid transparent;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  font-weight: 400;
+}
+.nav-item:hover { background: var(--card); color: var(--text); }
+.nav-item.active {
+  background: var(--card);
+  color: var(--gold);
+  border-left-color: var(--gold);
+  font-weight: 500;
+}
+.nav-icon { font-size: 14px; min-width: 18px; }
+
+.sidebar-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: 280px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #0D0F0E 0%, #141a16 50%, #0D0F0E 100%);
+  padding: 80px 64px 64px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: 100px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(76,175,125,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.08;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.hero h1 strong { font-weight: 700; color: var(--gold); }
+.hero h1 em { font-style: italic; color: var(--text-soft); }
+.hero-desc {
+  font-size: 16px;
+  color: var(--text-soft);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: 48px;
+}
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.h-stat { display: flex; flex-direction: column; gap: 4px; }
+.h-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.h-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ── PAGE SECTIONS ── */
+.page { display: none; padding: 48px 64px 80px; }
+.page.active { display: block; }
+
+/* ── SECTION HEADER ── */
+.section-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.section-header .eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.section-header .lead {
+  font-size: 16px;
+  color: var(--text-soft);
+  max-width: 680px;
+  line-height: 1.75;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-title .icon { font-size: 20px; }
+.card-body {
+  font-size: 14.5px;
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+.card-body p { margin-bottom: 12px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body strong { color: var(--text); font-weight: 600; }
+.card-body em { color: var(--gold); font-style: normal; }
+
+/* ── GRID LAYOUTS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight {
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 20px 0;
+  border-left: 3px solid;
+}
+.highlight.gold { background: var(--gold-dim); border-color: var(--gold); }
+.highlight.green { background: var(--green-dim); border-color: var(--green); }
+.highlight.red { background: var(--red-dim); border-color: var(--red); }
+.highlight.blue { background: var(--blue-dim); border-color: var(--blue); }
+.highlight.amber { background: var(--amber-dim); border-color: var(--amber); }
+.highlight .hl-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.highlight.gold .hl-label { color: var(--gold); }
+.highlight.green .hl-label { color: var(--green); }
+.highlight.red .hl-label { color: var(--red); }
+.highlight.blue .hl-label { color: var(--blue); }
+.highlight.amber .hl-label { color: var(--amber); }
+.highlight p { font-size: 14px; color: var(--text-soft); line-height: 1.75; }
+.highlight p strong { color: var(--text); }
+
+/* ── NUMBER LIST ── */
+.num-list { list-style: none; counter-reset: num; }
+.num-list li {
+  counter-increment: num;
+  display: flex;
+  gap: 16px;
+  margin-bottom: 18px;
+  font-size: 14.5px;
+  color: var(--text-soft);
+  line-height: 1.75;
+}
+.num-list li::before {
+  content: counter(num, decimal-leading-zero);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  min-width: 28px;
+  padding-top: 3px;
+}
+.num-list li strong { color: var(--text); }
+
+/* ── BULLET LIST ── */
+.bul-list { list-style: none; }
+.bul-list li {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14.5px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.bul-list li::before {
+  content: '▸';
+  color: var(--gold);
+  font-size: 12px;
+  padding-top: 3px;
+  flex-shrink: 0;
+}
+.bul-list li strong { color: var(--text); }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 10px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+thead { background: var(--card2); }
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+td { padding: 12px 16px; border-top: 1px solid var(--border); color: var(--text-soft); }
+tr:hover td { background: var(--card); }
+td strong { color: var(--text); }
+td.gold { color: var(--gold); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+td.green { color: var(--green); font-weight: 600; }
+td.red { color: var(--red); }
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--gold-light);
+  margin: 16px 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ── STEP FLOW ── */
+.steps { display: flex; gap: 0; flex-direction: column; }
+.step {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  padding-bottom: 28px;
+}
+.step:last-child { padding-bottom: 0; }
+.step-left { display: flex; flex-direction: column; align-items: center; }
+.step-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gold);
+  flex-shrink: 0;
+  z-index: 1;
+}
+.step-line {
+  width: 1px;
+  flex: 1;
+  background: var(--border);
+  margin-top: 6px;
+}
+.step:last-child .step-line { display: none; }
+.step-content { padding-top: 6px; }
+.step-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.step-desc {
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.75;
+}
+
+/* ── BADGE ── */
+.badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.badge.gold { background: var(--gold-dim); color: var(--gold); }
+.badge.green { background: var(--green-dim); color: var(--green); }
+.badge.red { background: var(--red-dim); color: var(--red); }
+.badge.blue { background: var(--blue-dim); color: var(--blue); }
+
+/* ── EXPAND/COLLAPSE ACCORDION ── */
+.accordion { margin-bottom: 10px; }
+.accordion-trigger {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  transition: all 0.18s;
+  font-family: 'Outfit', sans-serif;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+}
+.accordion-trigger:hover { border-color: var(--border2); background: var(--card2); }
+.accordion-trigger.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-color: var(--gold); }
+.acc-icon { transition: transform 0.25s; font-size: 12px; color: var(--text-muted); }
+.accordion-trigger.open .acc-icon { transform: rotate(180deg); color: var(--gold); }
+.accordion-body {
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0 24px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.25s;
+}
+.accordion-body.open {
+  max-height: 2000px;
+  padding: 20px 24px 24px;
+}
+.accordion-body p { font-size: 14.5px; color: var(--text-soft); line-height: 1.8; margin-bottom: 12px; }
+.accordion-body p:last-child { margin-bottom: 0; }
+.accordion-body strong { color: var(--text); }
+
+/* ── COMPOUND CALCULATOR ── */
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+.calc-input-group { display: flex; flex-direction: column; gap: 6px; }
+.calc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.calc-input {
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.18s;
+  width: 100%;
+}
+.calc-input:focus { border-color: var(--gold); }
+.calc-btn {
+  background: var(--gold);
+  color: #0D0F0E;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+.calc-btn:hover { opacity: 0.88; }
+.calc-result {
+  background: var(--green-dim);
+  border: 1px solid var(--green-soft);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 20px;
+}
+.calc-result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: var(--text-soft); }
+.calc-result-row:last-child { margin-bottom: 0; font-weight: 600; color: var(--green); font-size: 18px; }
+.calc-result-row span:last-child { font-family: 'JetBrains Mono', monospace; }
+
+/* ── QUOTE ── */
+.quote {
+  border-left: 3px solid var(--gold);
+  padding: 16px 24px;
+  margin: 24px 0;
+  background: rgba(201,168,76,0.04);
+  border-radius: 0 8px 8px 0;
+}
+.quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.quote cite {
+  font-size: 12px;
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+
+/* ── PIE VISUAL ── */
+.budget-visual {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 24px;
+  background: var(--card2);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.pie-chart {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(
+    #4CAF7D 0% 50%,
+    #C9A84C 50% 80%,
+    #E05555 80% 100%
+  );
+  box-shadow: 0 0 30px rgba(76,175,125,0.2);
+}
+.pie-legend { flex: 1; min-width: 180px; }
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 13.5px;
+}
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.legend-label { color: var(--text-soft); flex: 1; }
+.legend-pct { font-family: 'JetBrains Mono', monospace; color: var(--text); font-size: 13px; }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap { margin: 12px 0; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); margin-bottom: 6px; }
+.progress-track {
+  height: 6px;
+  background: var(--card2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+/* ── RISK SPECTRUM ── */
+.risk-bar {
+  display: flex;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+.risk-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── MOBILE ── */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text);
+}
+.overlay-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 40;
+}
+
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hamburger { display: block; }
+  .overlay-bg.show { display: block; }
+  .hero { padding: 60px 24px 48px; }
+  .page { padding: 40px 24px 60px; }
+  .grid-2, .grid-3, .calc-grid { grid-template-columns: 1fr; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page.active .section-header,
+.page.active .card,
+.page.active .highlight,
+.page.active .accordion {
+  animation: fadeUp 0.4s ease both;
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" id="hamburger">☰</button>
+<div class="overlay-bg" id="overlayBg"></div>
+
+<div class="app">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-label">📐 Cẩm Nang</div>
+    <div class="logo-title">Personal<br>Finance</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Bắt đầu</div>
+    <div class="nav-item active" data-page="home" onclick="navigate('home')">
+      <span class="nav-icon">🏠</span> Tổng quan
+    </div>
+    <div class="nav-item" data-page="mindset" onclick="navigate('mindset')">
+      <span class="nav-icon">🧠</span> Tư duy tài chính
+    </div>
+
+    <div class="nav-section-label">Nền Tảng</div>
+    <div class="nav-item" data-page="cashflow" onclick="navigate('cashflow')">
+      <span class="nav-icon">💰</span> Thu nhập & Dòng tiền
+    </div>
+    <div class="nav-item" data-page="budget" onclick="navigate('budget')">
+      <span class="nav-icon">📊</span> Ngân sách & Chi tiêu
+    </div>
+    <div class="nav-item" data-page="debt" onclick="navigate('debt')">
+      <span class="nav-icon">⛓</span> Quản lý nợ
+    </div>
+    <div class="nav-item" data-page="emergency" onclick="navigate('emergency')">
+      <span class="nav-icon">🛡️</span> Quỹ khẩn cấp
+    </div>
+
+    <div class="nav-section-label">Tăng Trưởng</div>
+    <div class="nav-item" data-page="saving" onclick="navigate('saving')">
+      <span class="nav-icon">🐥</span> Tiết kiệm thông minh
+    </div>
+    <div class="nav-item" data-page="investing" onclick="navigate('investing')">
+      <span class="nav-icon">📈</span> Đầu tư cơ bản
+    </div>
+    <div class="nav-item" data-page="compound" onclick="navigate('compound')">
+      <span class="nav-icon">✨</span> Lãi kép & Thời gian
+    </div>
+
+    <div class="nav-section-label">Bảo Vệ</div>
+    <div class="nav-item" data-page="insurance" onclick="navigate('insurance')">
+      <span class="nav-icon">☂️</span> Bảo hiểm
+    </div>
+    <div class="nav-item" data-page="tax" onclick="navigate('tax')">
+      <span class="nav-icon">🧾</span> Thuế & Tối ưu thuế
+    </div>
+
+    <div class="nav-section-label">Mục Tiêu Lớn</div>
+    <div class="nav-item" data-page="retirement" onclick="navigate('retirement')">
+      <span class="nav-icon">🌅</span> Nghỉ hưu & FIRE
+    </div>
+    <div class="nav-item" data-page="realestate" onclick="navigate('realestate')">
+      <span class="nav-icon">🏡</span> Bất động sản
+    </div>
+    <div class="nav-item" data-page="rules" onclick="navigate('rules')">
+      <span class="nav-icon">⚡</span> Quy tắc vàng
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    Tổng hợp từ kiến thức tài chính cá nhân toàn cầu.<br>
+    Không phải lời khuyên đầu tư.
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ── HOME / HERO ── -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-eyebrow">Personal Finance · Toàn tập</div>
+    <h1>Làm chủ<br><strong>Tài chính</strong><br><em>Cá nhân</em></h1>
+    <p class="hero-desc">Toàn bộ kiến thức tinh tuý về tài chính cá nhân — từ tư duy nền tảng đến chiến lược đầu tư, từ quản lý nợ đến tự do tài chính. Được trình bày có hệ thống, đầy đủ và thực tiễn.</p>
+    <div class="hero-stats">
+      <div class="h-stat"><span class="h-stat-num">12</span><span class="h-stat-label">Chương</span></div>
+      <div class="h-stat"><span class="h-stat-num">80+</span><span class="h-stat-label">Khái niệm</span></div>
+      <div class="h-stat"><span class="h-stat-num">∞</span><span class="h-stat-label">Giá trị</span></div>
+    </div>
+  </div>
+
+  <div style="padding: 48px 64px 80px;">
+    <div class="section-header">
+      <div class="eyebrow">Lộ trình học</div>
+      <h2>Bắt đầu từ đâu?</h2>
+      <p class="lead">Tài chính cá nhân là một hành trình, không phải đích đến. Đọc theo thứ tự hoặc nhảy thẳng vào chủ đề bạn cần nhất.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="cursor:pointer;" onclick="navigate('mindset')">
+        <div class="card-title"><span class="icon">🧠</span> Tư duy tài chính</div>
+        <div class="card-body"><p>Trước khi học kỹ thuật, phải thay đổi cách nhìn về tiền bạc. Tư duy đúng là nền tảng của mọi quyết định tài chính thành công.</p></div>
+        <div style="margin-top:16px;"><span class="badge gold">Bắt đầu đây</span></div>
+      </div>
+      <div class="card" style="cursor:pointer;" onclick="navigate('budget')">
+        <div class="card-title"><span class="icon">📊</span> Ngân sách & Chi tiêu</div>
+        <div class="card-body"><p>Không biết tiền đi đâu là vấn đề phổ biến nhất. Ngân sách không phải để hạn chế mà để trao quyền — bạn quyết định, không để tiền quyết định.</p></div>
+        <div style="margin-top:16px;"><span class="badge blue">Nền tảng</span></div>
+      </div>
+      <div class="card" style="cursor:pointer;" onclick="navigate('compound')">
+        <div class="card-title"><span class="icon">✨</span> Lãi kép</div>
+        <div class="card-body"><p>Einstein gọi là kỳ quan thứ 8 của thế giới. Hiểu lãi kép là hiểu tại sao bắt đầu đầu tư sớm 5 năm có thể tạo ra sự khác biệt hàng tỷ đồng.</p></div>
+        <div style="margin-top:16px;"><span class="badge green">Quan trọng nhất</span></div>
+      </div>
+      <div class="card" style="cursor:pointer;" onclick="navigate('rules')">
+        <div class="card-title"><span class="icon">⚡</span> Quy tắc vàng</div>
+        <div class="card-body"><p>Tổng hợp những quy tắc đơn giản mà hiệu quả nhất — 80/20 của tài chính cá nhân. Áp dụng được ngay hôm nay.</p></div>
+        <div style="margin-top:16px;"><span class="badge gold">Quick wins</span></div>
+      </div>
+    </div>
+
+    <div class="highlight gold" style="margin-top:32px;">
+      <div class="hl-label">💡 Nguyên lý cốt lõi</div>
+      <p>Tài chính cá nhân thực ra rất đơn giản: <strong>kiếm nhiều hơn bạn tiêu, tiết kiệm phần chênh lệch, đầu tư thông minh, bảo vệ bản thân khỏi rủi ro, và kiên nhẫn chờ đợi thời gian làm phần việc còn lại.</strong> Mọi kỹ thuật phức tạp đều chỉ là biến thể của nguyên lý này.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── MINDSET ── -->
+<div id="page-mindset" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 01</div>
+    <h2>Tư Duy Tài Chính</h2>
+    <p class="lead">Trước khi học bất kỳ kỹ thuật nào, bạn cần thay đổi cách nghĩ về tiền bạc. Mindset sai khiến những người có thu nhập cao vẫn phá sản, trong khi mindset đúng giúp người thu nhập trung bình xây dựng tài sản.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">💡</span> Tiền là công cụ, không phải mục tiêu</div>
+    <div class="card-body">
+      <p>Nhiều người chạy theo tiền như thể tiền là đích đến cuối cùng. Nhưng tiền chỉ là <strong>phương tiện để đổi lấy những thứ bạn thực sự muốn</strong> — tự do thời gian, an toàn, trải nghiệm, cơ hội. Khi nhầm lẫn công cụ với mục tiêu, bạn tích lũy tiền mà không biết để làm gì, hoặc tiêu tiền vào những thứ không mang lại hạnh phúc thực sự.</p>
+      <p>Hãy định nghĩa <em>cuộc sống lý tưởng của bạn trước</em>, rồi mới tính cần bao nhiêu tiền để sống cuộc sống đó. Đây là thứ tự đúng.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🧱</span> Rich vs. Wealthy</div>
+      <div class="card-body">
+        <p><strong>Rich (giàu bề ngoài):</strong> thu nhập cao, tiêu tiền nhiều, tài sản ít. Bác sĩ lương 500 triệu/năm nhưng mua xe 2 tỷ, nhà to, không có tiết kiệm — khi mất việc, phá sản trong 6 tháng.</p>
+        <p><strong>Wealthy (giàu thực sự):</strong> tài sản lớn, dòng tiền thụ động, không phụ thuộc vào lương. Người tích lũy âm thầm trong 20 năm, thu nhập thụ động đủ trang trải cuộc sống.</p>
+        <p>Mục tiêu là <em>Wealthy</em>, không phải Rich.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">⏰</span> Trả cho bản thân trước</div>
+      <div class="card-body">
+        <p>Hầu hết mọi người làm theo thứ tự: <strong>Kiếm → Tiêu → Tiết kiệm phần còn lại</strong>. Vấn đề: thường không còn gì để tiết kiệm.</p>
+        <p>Nguyên tắc đúng là: <strong>Kiếm → Tiết kiệm/Đầu tư ngay → Tiêu phần còn lại</strong>. Thiết lập auto-transfer ngay khi lương về, trước khi bạn kịp tiêu.</p>
+        <p>George Clason gọi đây là bí quyết cốt lõi trong <em>"The Richest Man in Babylon"</em>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔄</span> Vòng lặp tài chính — thoát hay mắc kẹt?</div>
+    <div class="card-body">
+      <p><strong>Vòng lặp tiêu cực (Rat Race):</strong> Được tăng lương → nâng cấp lối sống → chi phí tăng theo → vẫn cần lương để sống → không bao giờ đủ. Robert Kiyosaki gọi đây là "Rat Race" — chuột chạy mãi trong vòng quay không lối thoát.</p>
+      <p><strong>Vòng lặp tích cực (Wealth Flywheel):</strong> Tiết kiệm được → đầu tư → tạo dòng tiền thụ động → dùng dòng tiền thụ động đầu tư thêm → tài sản tăng nhanh hơn. Bí quyết là <em>không nâng cấp lối sống theo tỷ lệ thu nhập tăng.</em></p>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>"Không phải bạn kiếm được bao nhiêu mà quan trọng là bạn giữ được bao nhiêu, và bao lâu nó làm việc cho bạn."</p>
+    <cite>— Robert Kiyosaki, Rich Dad Poor Dad</cite>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎭</span> Lifestyle Inflation — Kẻ thù thầm lặng</div>
+    <div class="card-body">
+      <p><strong>Lifestyle Inflation</strong> xảy ra khi chi tiêu tăng theo tỷ lệ với thu nhập. Lương tăng 30% → mua xe tốt hơn, thuê nhà to hơn, ăn nhà hàng thường xuyên hơn. Kết quả: dù thu nhập gấp đôi 5 năm trước, bạn vẫn sống từ lương đến lương.</p>
+      <p>Giải pháp: khi thu nhập tăng, <strong>giữ nguyên chi tiêu ít nhất 6-12 tháng</strong>. Dùng toàn bộ phần tăng thêm để đầu tư hoặc trả nợ. Sau đó mới cho phép một phần nhỏ cải thiện lối sống.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📚</span> Tài sản vs. Tiêu sản — Định nghĩa lại</div>
+    <div class="card-body">
+      <p>Robert Kiyosaki đưa ra định nghĩa đơn giản nhưng cực kỳ sâu sắc:</p>
+      <p><strong>Tài sản (Asset)</strong> = thứ bỏ tiền vào túi bạn: cổ phiếu trả cổ tức, bất động sản cho thuê, trái phiếu, doanh nghiệp, royalties từ sáng tác...</p>
+      <p><strong>Tiêu sản (Liability)</strong> = thứ lấy tiền ra khỏi túi bạn: xe hơi (khấu hao + xăng + bảo hiểm), nhà ở chính (lãi vay + phí bảo trì), điện thoại mới nhất, quần áo hiệu...</p>
+      <p>Chiến lược: <em>liên tục mua thêm tài sản và tránh tích lũy tiêu sản không cần thiết.</em> Người giàu mua tài sản. Tầng lớp trung lưu mua tiêu sản rồi gọi là tài sản.</p>
+    </div>
+  </div>
+
+  <div class="highlight green">
+    <div class="hl-label">✅ Hành động ngay</div>
+    <p>Viết ra câu trả lời cho 3 câu hỏi: (1) <strong>Cuộc sống lý tưởng của tôi trông như thế nào?</strong> (2) <strong>Tôi cần bao nhiêu tiền/tháng để sống cuộc sống đó?</strong> (3) <strong>Tôi đang chi tiêu tiền vào những thứ có giá trị với tôi không?</strong></p>
+  </div>
+</div>
+
+<!-- ── CASH FLOW ── -->
+<div id="page-cashflow" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 02</div>
+    <h2>Thu Nhập & Dòng Tiền</h2>
+    <p class="lead">Dòng tiền là oxy của cuộc sống tài chính. Hiểu rõ tiền đến từ đâu và đi đâu là bước đầu tiên để kiểm soát tài chính của mình.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span> Net Worth — Thước đo thực sự</div>
+    <div class="card-body">
+      <p><strong>Net Worth (Tài sản ròng) = Tổng tài sản − Tổng nợ</strong></p>
+      <p>Đây là số liệu quan trọng nhất trong tài chính cá nhân, không phải thu nhập. Một người lương 100 triệu/tháng có thể có net worth âm nếu nợ nhiều. Một người lương 20 triệu có thể có net worth dương và ngày càng tăng.</p>
+      <p>Hãy tính net worth của mình ngay bây giờ: liệt kê tất cả tài sản (tiền mặt, tiết kiệm, đầu tư, bất động sản, xe) và tất cả nợ (thẻ tín dụng, vay mua nhà, vay mua xe, vay cá nhân). Lấy tổng tài sản trừ tổng nợ.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">💼</span> Thu nhập chủ động</div>
+      <div class="card-body">
+        <p>Thu nhập bạn kiếm được bằng cách <strong>đổi thời gian lấy tiền</strong>. Khi bạn ngừng làm việc, thu nhập dừng lại.</p>
+        <ul class="bul-list" style="margin-top:12px;">
+          <li><strong>Lương/Thưởng:</strong> nguồn chính của hầu hết mọi người</li>
+          <li><strong>Freelance/Tư vấn:</strong> thu nhập cao hơn nhưng không ổn định</li>
+          <li><strong>Kinh doanh:</strong> đòi hỏi nhiều công sức nhưng tiềm năng không giới hạn</li>
+          <li><strong>Làm thêm (Side hustle):</strong> tăng thu nhập bên cạnh công việc chính</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🌊</span> Thu nhập thụ động</div>
+      <div class="card-body">
+        <p>Tiền <strong>tiếp tục chảy vào ngay cả khi bạn không làm việc</strong>. Đây là mục tiêu cuối cùng của tự do tài chính.</p>
+        <ul class="bul-list" style="margin-top:12px;">
+          <li><strong>Cổ tức từ cổ phiếu:</strong> chia sẻ lợi nhuận doanh nghiệp</li>
+          <li><strong>Lãi trái phiếu:</strong> ổn định, ít rủi ro</li>
+          <li><strong>Tiền thuê nhà:</strong> bất động sản cho thuê</li>
+          <li><strong>Royalties:</strong> sách, nhạc, phần mềm, khóa học</li>
+          <li><strong>Affiliate marketing:</strong> hoa hồng giới thiệu</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📈</span> Tăng thu nhập — Chiến lược thực tế</div>
+    <div class="card-body">
+      <p>Tiết kiệm có giới hạn (bạn không thể cắt giảm dưới 0), nhưng thu nhập thì không giới hạn. Đây là lý do tập trung vào tăng thu nhập quan trọng không kém — thậm chí quan trọng hơn — cắt giảm chi phí.</p>
+      <p><strong>Trong công việc hiện tại:</strong> Đàm phán tăng lương định kỳ (nhiều người để lại hàng tỷ đồng trên bàn trong career vì không đàm phán), phát triển kỹ năng có giá trị cao, chủ động nhận trách nhiệm lớn hơn, đổi việc có thể tăng lương 20-40% so với tăng lương nội bộ thường chỉ 5-10%.</p>
+      <p><strong>Ngoài công việc chính:</strong> Tận dụng kỹ năng hiện có để làm thêm — freelance, tư vấn, dạy học, nội dung số. Một side hustle 5-10 triệu/tháng có thể đẩy nhanh hành trình tài chính đáng kể.</p>
+    </div>
+  </div>
+
+  <div class="highlight amber">
+    <div class="hl-label">⚠️ Bẫy "Một nguồn thu nhập"</div>
+    <p>COVID-19 và các khủng hoảng kinh tế chứng minh: <strong>phụ thuộc hoàn toàn vào một nguồn thu nhập là rủi ro rất lớn.</strong> Mục tiêu: ít nhất 2-3 nguồn thu nhập. Bắt đầu bằng cách phát triển một side hustle nhỏ song song với công việc chính, ngay cả khi mang lại rất ít ban đầu.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📉</span> Bài tập: Phân tích dòng tiền 30 ngày</div>
+    <div class="card-body">
+      <p>Xuất lịch sử giao dịch ngân hàng 3 tháng gần nhất. Phân loại từng khoản chi tiêu. Bạn sẽ ngạc nhiên khi thấy <strong>thực tế vs nhận thức</strong> của mình về chi tiêu khác nhau đến mức nào.</p>
+      <p>Hầu hết mọi người nghĩ mình chi x cho ăn uống nhưng thực tế là 1.5x-2x. Đây không phải để tự chỉ trích mà để <em>đưa ra quyết định có ý thức</em> thay vì chi tiêu theo quán tính.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── BUDGET ── -->
+<div id="page-budget" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 03</div>
+    <h2>Ngân Sách & Chi Tiêu</h2>
+    <p class="lead">Ngân sách không phải xiềng xích — đó là bản đồ cho phép bạn đến đúng điểm đến. Không có ngân sách, bạn đang lái xe không có GPS và không nhìn vào đồng hồ nhiên liệu.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> Quy tắc 50/30/20 — Framework phổ biến nhất</div>
+    <div class="card-body">
+      <p>Elizabeth Warren đề xuất framework đơn giản và thực tế:</p>
+    </div>
+    <div class="budget-visual">
+      <div class="pie-chart"></div>
+      <div class="pie-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#4CAF7D;"></div>
+          <div class="legend-label"><strong>Nhu cầu thiết yếu</strong><br><small style="color:var(--text-muted)">Nhà, ăn, đi lại, điện nước, bảo hiểm</small></div>
+          <div class="legend-pct">50%</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#C9A84C;"></div>
+          <div class="legend-label"><strong>Mong muốn / Giải trí</strong><br><small style="color:var(--text-muted)">Ăn ngoài, du lịch, mua sắm, giải trí</small></div>
+          <div class="legend-pct">30%</div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#E05555;"></div>
+          <div class="legend-label"><strong>Tiết kiệm & Trả nợ</strong><br><small style="color:var(--text-muted)">Quỹ khẩn cấp, đầu tư, trả nợ sớm</small></div>
+          <div class="legend-pct">20%</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p style="margin-top:16px;">Đây là điểm <em>khởi đầu</em>. Nếu bạn có nợ nhiều, hãy giảm "mong muốn" xuống 20% và tăng "tiết kiệm/trả nợ" lên 30%. Nếu thu nhập cao và chi phí cố định thấp, cố gắng tiết kiệm 30-40%.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">💵</span> Zero-Based Budgeting</div>
+    <div class="card-body">
+      <p>Phương pháp mạnh hơn 50/30/20: <strong>phân bổ từng đồng thu nhập cho một mục đích cụ thể</strong>, cho đến khi tổng thu nhập trừ tổng phân bổ = 0.</p>
+      <p>Thu nhập 20 triệu → phân bổ: 6 triệu nhà, 3 triệu ăn, 1 triệu đi lại, 2 triệu giải trí, 2 triệu tiết kiệm, 4 triệu đầu tư, 2 triệu quỹ khẩn cấp = 20 triệu. Mỗi đồng có "việc làm".</p>
+      <p>Ưu điểm: không có tiền "mất không rõ lý do". Nhược điểm: cần nhiều công sức theo dõi hơn.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">📱</span> Phương pháp Envelope</div>
+      <div class="card-body">
+        <p>Chia tiền mặt vào các phong bì dán nhãn (hoặc tài khoản ngân hàng riêng): Ăn uống, Giải trí, Mua sắm... Khi phong bì hết tiền, <strong>không chi thêm</strong> trong danh mục đó tháng này.</p>
+        <p>Rất hiệu quả với người hay chi tiêu bốc đồng vì tạo ra giới hạn rõ ràng bằng tiền mặt thực tế.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">📊</span> Pay Yourself First Budget</div>
+      <div class="card-body">
+        <p>Ngay khi lương về: <strong>tự động chuyển phần tiết kiệm/đầu tư</strong> vào tài khoản riêng trước khi làm bất cứ điều gì. Sống bằng phần còn lại.</p>
+        <p>Đơn giản nhất, ít cần theo dõi nhất. Phù hợp với người không thích lập bảng chi tiết nhưng vẫn muốn đảm bảo tiết kiệm.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">✂️</span> Cắt giảm chi tiêu thông minh</div>
+    <div class="card-body">
+      <p><strong>Nguyên tắc: Đau ít nhất, tiết kiệm nhiều nhất.</strong> Đừng cắt những thứ mang lại niềm vui lớn — chỉ cắt những thứ bạn trả tiền nhưng ít dùng hoặc không để ý.</p>
+      <p><strong>Các "chi tiêu zombie" thường gặp:</strong> Subscription không dùng (Netflix, Spotify, gym, app), bảo hiểm quá đắt so với nhu cầu, phí ngân hàng không cần thiết, đặt đồ ăn mỗi ngày thay vì nấu một phần, mua café hàng ngày (5-10 triệu/năm).</p>
+      <p><strong>Cắt "big three" trước:</strong> Nhà ở, phương tiện đi lại, và thực phẩm chiếm 60-70% chi tiêu của hầu hết mọi người. Tối ưu ba khoản này tác động gấp 10 lần so với cắt những thứ nhỏ lẻ.</p>
+    </div>
+  </div>
+
+  <div class="highlight gold">
+    <div class="hl-label">💡 Nguyên tắc Latte Factor</div>
+    <p>David Bach đề xuất: những chi tiêu nhỏ hàng ngày cộng dồn thành số tiền lớn theo năm. <strong>Café 50k/ngày = 18 triệu/năm = 180 triệu trong 10 năm</strong> (chưa tính lãi kép nếu đầu tư). Không phải cần cắt café (nếu nó mang lại giá trị thực sự) — mà nhận thức rõ chi phí thực sự của từng thói quen nhỏ.</p>
+  </div>
+</div>
+
+<!-- ── DEBT ── -->
+<div id="page-debt" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 04</div>
+    <h2>Quản Lý Nợ</h2>
+    <p class="lead">Không phải tất cả nợ đều xấu — có nợ tốt và nợ xấu. Chiến lược thoát nợ đúng có thể tiết kiệm hàng chục triệu đồng tiền lãi và rút ngắn thời gian nhiều năm.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">✅</span> Nợ tốt (Good Debt)</div>
+      <div class="card-body">
+        <p>Nợ dùng để mua tài sản tạo ra giá trị hoặc tăng thu nhập của bạn theo thời gian:</p>
+        <ul class="bul-list" style="margin-top:12px;">
+          <li><strong>Vay mua nhà:</strong> lãi suất thấp, tài sản thường tăng giá</li>
+          <li><strong>Vay đầu tư kinh doanh:</strong> ROI cao hơn lãi vay</li>
+          <li><strong>Vay học hành:</strong> tăng thu nhập tương lai (cần tính toán cẩn thận)</li>
+          <li><strong>Vay mua BĐS cho thuê:</strong> dòng tiền thuê > lãi vay</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">⛔</span> Nợ xấu (Bad Debt)</div>
+      <div class="card-body">
+        <p>Nợ dùng để mua tiêu sản hoặc tiêu dùng — lãi suất cao, không tạo ra giá trị:</p>
+        <ul class="bul-list" style="margin-top:12px;">
+          <li><strong>Thẻ tín dụng trả chậm:</strong> 20-36%/năm — nguy hiểm nhất</li>
+          <li><strong>Vay tín chấp tiêu dùng:</strong> lãi 15-25%/năm</li>
+          <li><strong>Vay mua xe:</strong> xe mất giá, lãi suất trung bình</li>
+          <li><strong>Mua trả góp hàng hóa:</strong> thường có lãi suất cao ẩn</li>
+          <li><strong>App vay nhanh:</strong> lãi suất cực cao, tránh hoàn toàn</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚔️</span> Debt Snowball vs. Debt Avalanche</div>
+    <div class="card-body">
+      <p>Hai chiến lược trả nợ hiệu quả nhất, mỗi cái phù hợp một loại người:</p>
+    </div>
+    <div class="grid-2" style="margin-top:16px;">
+      <div style="background:var(--green-dim);border:1px solid var(--green-soft);border-radius:10px;padding:20px;">
+        <div style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:12px;">SNOWBALL — Dave Ramsey</div>
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.75;"><strong style="color:var(--text);">Trả nợ nhỏ nhất trước</strong>, bất kể lãi suất. Khi trả xong một khoản, chuyển toàn bộ số tiền đó sang khoản tiếp theo — tạo "quả cầu tuyết".</p>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">✓ Chiến thắng nhanh giúp duy trì động lực<br>✗ Tốn tiền lãi hơn về tổng thể</p>
+      </div>
+      <div style="background:var(--blue-dim);border:1px solid #2A4A6A;border-radius:10px;padding:20px;">
+        <div style="color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:12px;">AVALANCHE — Toán học</div>
+        <p style="font-size:14px;color:var(--text-soft);line-height:1.75;"><strong style="color:var(--text);">Trả nợ lãi suất cao nhất trước</strong>. Thanh toán tối thiểu tất cả các khoản khác, đổ toàn bộ tiền thừa vào khoản lãi cao nhất.</p>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">✓ Tiết kiệm tiền lãi nhiều nhất<br>✗ Có thể mất động lực nếu khoản lớn nhất mất thời gian dài</p>
+      </div>
+    </div>
+    <div class="card-body" style="margin-top:16px;">
+      <p><strong>Lời khuyên thực tế:</strong> Nếu bạn có ý chí cao — dùng Avalanche. Nếu bạn cần quick wins để tiếp tục — dùng Snowball. Cả hai đều tốt hơn không có chiến lược.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">💳</span> Thẻ tín dụng — Công cụ hay Bẫy?</div>
+    <div class="card-body">
+      <p>Thẻ tín dụng là <strong>con dao hai lưỡi</strong>. Dùng đúng cách: hoàn toàn miễn phí, nhận cashback 1-2%, điểm thưởng, bảo vệ giao dịch. Dùng sai cách: 20-30%/năm lãi suất — kẻ thù tài chính nguy hiểm nhất.</p>
+      <p><strong>Quy tắc thẻ tín dụng an toàn:</strong></p>
+      <ul class="bul-list">
+        <li>Chỉ chi tiêu những thứ <strong>bạn đã có tiền trong tài khoản</strong></li>
+        <li>Trả <strong>toàn bộ số dư</strong> trước ngày sao kê, không bao giờ trả tối thiểu</li>
+        <li>Đặt auto-pay toàn bộ để không bao giờ quên</li>
+        <li>Chỉ có 1-2 thẻ, không phát sinh phí thường niên không xứng đáng</li>
+        <li>Nếu không kiểm soát được chi tiêu — <strong>cắt thẻ, dùng thẻ debit</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight red">
+    <div class="hl-label">🚨 Tránh tuyệt đối</div>
+    <p><strong>App cho vay nhanh / tín dụng đen:</strong> Lãi suất thực tế có thể lên đến 200-700%/năm khi tính đủ phí. Một khoản vay 5 triệu "30 ngày, 0% lãi" thực tế có thể phí 500k-1 triệu. <strong>Đây không bao giờ là giải pháp</strong> — bán đồ, vay người thân, làm thêm đều tốt hơn app cho vay nhanh.</p>
+  </div>
+</div>
+
+<!-- ── EMERGENCY ── -->
+<div id="page-emergency" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 05</div>
+    <h2>Quỹ Khẩn Cấp</h2>
+    <p class="lead">Quỹ khẩn cấp là nền móng của toàn bộ kế hoạch tài chính. Không có nó, mọi kế hoạch đầu tư của bạn có thể sụp đổ chỉ vì một biến cố bất ngờ.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🛡️</span> Tại sao Quỹ Khẩn Cấp quan trọng?</div>
+    <div class="card-body">
+      <p>Cuộc sống luôn có surprises: mất việc, bệnh tật, xe hỏng, sửa nhà, người thân cần giúp đỡ... Không có quỹ khẩn cấp, mỗi biến cố bắt buộc bạn phải:</p>
+      <ul class="bul-list">
+        <li>Rút tiền đầu tư sớm (có thể bán lỗ, mất thuế)</li>
+        <li>Vay nợ lãi suất cao</li>
+        <li>Phụ thuộc vào gia đình</li>
+        <li>Rơi vào vòng xoáy nợ nần</li>
+      </ul>
+      <p style="margin-top:12px;">Quỹ khẩn cấp cho bạn <em>thời gian và không gian để xử lý khủng hoảng mà không phải đưa ra quyết định tài chính sai trong tình huống căng thẳng.</em></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> Cần bao nhiêu?</div>
+    <div class="card-body">
+      <p>Khuyến nghị phổ biến: <strong>3-6 tháng chi phí sinh hoạt</strong>. Nhưng cụ thể hơn:</p>
+    </div>
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr><th>Tình huống</th><th>Mức khuyến nghị</th><th>Lý do</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Thu nhập ổn định, song nghề, không phụ thuộc</strong></td><td class="green">3 tháng</td><td>Dễ kiếm việc mới, có backup</td></tr>
+          <tr><td><strong>Gia đình 1 người đi làm, có con nhỏ</strong></td><td class="gold">6 tháng</td><td>Rủi ro cao hơn, ít linh hoạt</td></tr>
+          <tr><td><strong>Freelance / kinh doanh / thu nhập không ổn định</strong></td><td class="gold">9-12 tháng</td><td>Thu nhập có thể dừng đột ngột</td></tr>
+          <tr><td><strong>Sắp nghỉ hưu / tình trạng sức khỏe có vấn đề</strong></td><td class="red">12+ tháng</td><td>Khó kiếm thu nhập thay thế</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏦</span> Để quỹ khẩn cấp ở đâu?</div>
+    <div class="card-body">
+      <p>Quỹ khẩn cấp cần đáp ứng 3 tiêu chí: <strong>An toàn tuyệt đối</strong> (không rủi ro mất tiền), <strong>Thanh khoản cao</strong> (rút được ngay khi cần), và <strong>Sinh lời hợp lý</strong> (đủ bù lạm phát).</p>
+      <ul class="bul-list">
+        <li><strong>Tiết kiệm không kỳ hạn:</strong> thanh khoản cao nhất, lãi suất thấp nhất — ok cho 1 tháng đầu</li>
+        <li><strong>Tiết kiệm kỳ hạn ngắn (1-3 tháng):</strong> chia nhỏ thành nhiều kỳ hạn liên tiếp để luôn có một kỳ sắp đáo hạn</li>
+        <li><strong>Tài khoản tiết kiệm lãi suất cao (HYSA):</strong> nếu ngân hàng cung cấp lãi suất tốt hơn</li>
+        <li><strong>KHÔNG đặt vào chứng khoán / crypto:</strong> có thể mất 50% giá trị đúng lúc bạn cần nhất</li>
+      </ul>
+      <p style="margin-top:12px;"><em>Chiến thuật "Tiết kiệm bậc thang":</em> Chia 6 tháng thành 6 kỳ hạn 1 tháng liên tiếp. Mỗi tháng một kỳ đáo hạn — nếu không cần, tự động tái ký. Nếu cần, rút kỳ đến hạn trước mà không bị phạt.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🚀</span> Cách xây dựng quỹ khẩn cấp nhanh nhất</div>
+    <div class="card-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Mini Emergency Fund — 1 tháng trước</div>
+            <div class="step-desc">Nếu đang có nợ lãi cao, không cần đợi đủ 3-6 tháng mới trả nợ. Xây 1 tháng chi phí trước (~5-15 triệu tùy mức sống), rồi tập trung trả nợ lãi cao. Sau khi trả xong mới xây đủ quỹ.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Tự động hóa đóng góp</div>
+            <div class="step-desc">Đặt lệnh chuyển tự động vào ngày lương: dù chỉ 500k-1 triệu/tháng, sau 1-2 năm có quỹ đáng kể. Nhất quán quan trọng hơn số tiền lớn.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Đưa thu nhập bất thường vào quỹ</div>
+            <div class="step-desc">Thưởng, tiền lì xì, freelance một lần, bán đồ cũ — 50-100% vào quỹ khẩn cấp cho đến khi đủ mức mục tiêu.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Bổ sung khi sử dụng</div>
+            <div class="step-desc">Mỗi khi dùng quỹ khẩn cấp, ưu tiên hàng đầu là bổ sung lại trước khi quay về kế hoạch đầu tư bình thường.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SAVING ── -->
+<div id="page-saving" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 06</div>
+    <h2>Tiết Kiệm Thông Minh</h2>
+    <p class="lead">Tiết kiệm không phải là từ chối bản thân — là trả tiền trước cho tự do tương lai của mình. Mục tiêu không phải tiết kiệm nhiều nhất có thể mà là tiết kiệm đủ để đạt mục tiêu, đồng thời vẫn có cuộc sống tốt hiện tại.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📐</span> Tỷ lệ tiết kiệm — Bao nhiêu là đủ?</div>
+    <div class="card-body">
+      <p>Tỷ lệ tiết kiệm quyết định bạn đến đích nhanh hay chậm hơn bất kỳ yếu tố nào khác, <em>kể cả lãi suất đầu tư</em>:</p>
+    </div>
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr><th>Tỷ lệ tiết kiệm</th><th>Năm đến tự do tài chính*</th><th>Đánh giá</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5%</td><td class="red">66 năm</td><td>Hầu hết mọi người</td></tr>
+          <tr><td>10%</td><td class="gold">43 năm</td><td>Tối thiểu khuyến nghị</td></tr>
+          <tr><td>20%</td><td class="gold">37 năm</td><td>Nguyên tắc 50/30/20</td></tr>
+          <tr><td>30%</td><td class="green">28 năm</td><td>Tốt</td></tr>
+          <tr><td>50%</td><td class="green">17 năm</td><td>Rất tốt — FIRE sớm</td></tr>
+          <tr><td>75%</td><td class="green">7 năm</td><td>Extreme FIRE</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body" style="margin-top:12px;">
+      <p>*Giả định chi tiêu cố định và đầu tư lãi suất 5%/năm thực. Nguồn: Mr. Money Mustache.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> Tiết kiệm theo mục tiêu</div>
+    <div class="card-body">
+      <p>Tiết kiệm hiệu quả hơn khi gắn với mục tiêu cụ thể, không phải "tiết kiệm chung chung":</p>
+      <ul class="bul-list">
+        <li><strong>Quỹ khẩn cấp:</strong> 3-6 tháng chi phí — ưu tiên số 1</li>
+        <li><strong>Quỹ nghỉ hưu:</strong> dài hạn, đầu tư tăng trưởng</li>
+        <li><strong>Quỹ mua nhà:</strong> 20-30% tiền đặt cọc trong 3-5 năm</li>
+        <li><strong>Quỹ giáo dục con:</strong> bắt đầu từ khi sinh, đầu tư dài hạn</li>
+        <li><strong>Quỹ du lịch/trải nghiệm:</strong> hưởng thụ hiện tại có kế hoạch</li>
+        <li><strong>Quỹ đầu tư:</strong> cổ phiếu, quỹ mở, tích lũy dài hạn</li>
+      </ul>
+      <p style="margin-top:12px;">Mở tài khoản ngân hàng riêng cho từng mục tiêu lớn — giúp không "vô tình" dùng tiền sai mục đích và nhìn thấy tiến độ rõ ràng.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚙️</span> Tự động hóa — Chìa khóa thành công</div>
+    <div class="card-body">
+      <p>Ý chí không đủ đáng tin cậy. Tự động hóa loại bỏ quyết định khỏi phương trình:</p>
+      <ol class="num-list">
+        <li><strong>Ngày lương về:</strong> tự động chuyển X% vào tài khoản tiết kiệm/đầu tư</li>
+        <li><strong>Tài khoản chi tiêu:</strong> chỉ có tiền "được phép tiêu" — không cần ý chí để không đụng đến tiền đầu tư</li>
+        <li><strong>Tài khoản đầu tư:</strong> thiết lập DCA (Dollar-Cost Averaging) tự động mua quỹ định kỳ</li>
+        <li><strong>Tài khoản hóa đơn:</strong> auto-pay tất cả bills định kỳ để không bao giờ quên và không phạt chậm thanh toán</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ── INVESTING ── -->
+<div id="page-investing" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 07</div>
+    <h2>Đầu Tư Cơ Bản</h2>
+    <p class="lead">Đầu tư không phải để làm giàu nhanh — mà để bảo tồn và tăng trưởng tài sản theo thời gian, đánh bại lạm phát, và xây dựng nguồn thu nhập thụ động.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⚖️</span> Risk vs. Return — Nguyên tắc cơ bản nhất</div>
+    <div class="card-body">
+      <p>Không có bữa ăn nào miễn phí trong đầu tư. <strong>Lợi nhuận tiềm năng cao hơn luôn đi kèm rủi ro cao hơn.</strong> Ai hứa lợi nhuận cao mà rủi ro thấp — không phải lừa đảo thì cũng là điều họ không hiểu rõ.</p>
+    </div>
+    <div style="margin:16px 0;">
+      <div class="risk-bar">
+        <div class="risk-seg" style="width:20%;background:#2A4A6A;color:#5B9BD5;">Tiền gửi</div>
+        <div class="risk-seg" style="width:20%;background:#2A5040;color:#4CAF7D;">Trái phiếu</div>
+        <div class="risk-seg" style="width:20%;background:#4A3C1A;color:#C9A84C;">ETF/Index</div>
+        <div class="risk-seg" style="width:20%;background:#3D2610;color:#E8903A;">Cổ phiếu</div>
+        <div class="risk-seg" style="width:20%;background:#3A1818;color:#E05555;">Crypto/Alt</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;margin-top:6px;">
+        <span>Rủi ro thấp · Lợi nhuận thấp</span>
+        <span>Rủi ro cao · Lợi nhuận cao</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🌐</span> Đa dạng hóa danh mục</div>
+    <div class="card-body">
+      <p><strong>"Đừng bỏ tất cả trứng vào một giỏ"</strong> — đây là quy tắc quan trọng nhất của đầu tư. Đa dạng hóa không loại bỏ rủi ro nhưng giảm thiểu rủi ro không cần thiết.</p>
+      <p><strong>Đa dạng hóa theo chiều ngang:</strong> Nhiều cổ phiếu/công ty trong danh mục — không phụ thuộc một cổ phiếu. Một công ty phá sản chỉ ảnh hưởng một phần nhỏ.</p>
+      <p><strong>Đa dạng hóa theo loại tài sản:</strong> Cổ phiếu, trái phiếu, bất động sản, tiền mặt, vàng — khi một loại giảm, loại khác có thể tăng hoặc ổn định.</p>
+      <p><strong>Đa dạng hóa địa lý:</strong> Cổ phiếu trong nước + nước ngoài. Kinh tế một quốc gia không đại diện cho toàn thế giới.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📦</span> Các loại tài sản đầu tư chính</div>
+    <div class="card-body">
+      <div class="accordion" style="margin-top:0;">
+        <button class="accordion-trigger" onclick="toggleAcc(this)">
+          🏛️ Cổ phiếu (Stocks) <span class="acc-icon">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p><strong>Cổ phiếu là phần sở hữu trong một doanh nghiệp.</strong> Khi mua cổ phiếu Apple, bạn là cổ đông — được chia lãi (cổ tức) và hưởng lợi khi giá trị công ty tăng.</p>
+          <p>Lợi nhuận lịch sử dài hạn: thị trường Mỹ (S&P500) ~10%/năm trung bình trong 100 năm. Thị trường Việt Nam VN-Index cũng có mức tăng trưởng dài hạn tốt dù biến động mạnh hơn.</p>
+          <p><strong>Rủi ro:</strong> Biến động ngắn hạn lớn. Trong ngắn hạn, thị trường hoàn toàn không thể dự đoán. Trong dài hạn (10-20 năm), xu hướng tăng là chủ đạo. Đừng bao giờ đầu tư cổ phiếu tiền bạn cần trong 1-3 năm tới.</p>
+        </div>
+      </div>
+      <div class="accordion">
+        <button class="accordion-trigger" onclick="toggleAcc(this)">
+          📊 ETF & Quỹ Index <span class="acc-icon">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p><strong>ETF (Exchange-Traded Fund)</strong> là giỏ cổ phiếu giao dịch trên sàn như cổ phiếu thường. ETF Index theo dõi một chỉ số (VN30, S&P500, MSCI World) — bạn mua một ETF là mua cả rổ cổ phiếu đó.</p>
+          <p><strong>Tại sao ETF Index được khuyến nghị cho hầu hết nhà đầu tư cá nhân?</strong> Chi phí cực thấp (0.03-0.2%/năm so với 1-2%/năm của quỹ chủ động). Đa dạng hóa tự động. Nghiên cứu học thuật chứng minh: 80-90% quỹ chủ động không đánh bại được index sau phí trong 10+ năm.</p>
+          <p>Warren Buffett khuyên vợ sau khi ông mất: "Đặt 90% tiền vào index fund S&P500, 10% trái phiếu ngắn hạn."</p>
+        </div>
+      </div>
+      <div class="accordion">
+        <button class="accordion-trigger" onclick="toggleAcc(this)">
+          💼 Trái phiếu (Bonds) <span class="acc-icon">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p><strong>Trái phiếu là khoản vay cho chính phủ hoặc doanh nghiệp.</strong> Bạn cho họ mượn tiền, họ trả lãi định kỳ và hoàn gốc khi đáo hạn. An toàn hơn cổ phiếu, lợi nhuận thấp hơn.</p>
+          <p><strong>Trái phiếu chính phủ:</strong> An toàn nhất, lãi suất thấp nhất. Tại Việt Nam, trái phiếu Kho bạc Nhà nước là ví dụ.</p>
+          <p><strong>Trái phiếu doanh nghiệp:</strong> Lãi suất cao hơn, rủi ro cao hơn. Lưu ý: vụ Vạn Thịnh Phát và nhiều vụ trái phiếu doanh nghiệp tại VN cho thấy cần kiểm tra kỹ tổ chức phát hành.</p>
+          <p>Vai trò trong danh mục: giảm biến động tổng thể, đặc biệt quan trọng khi gần đến độ tuổi nghỉ hưu.</p>
+        </div>
+      </div>
+      <div class="accordion">
+        <button class="accordion-trigger" onclick="toggleAcc(this)">
+          🥇 Vàng & Hàng hóa <span class="acc-icon">▼</span>
+        </button>
+        <div class="accordion-body">
+          <p><strong>Vàng</strong> là kho lưu trữ giá trị hàng nghìn năm, đặc biệt hiệu quả trong thời kỳ lạm phát cao và khủng hoảng địa chính trị. Người Việt Nam có truyền thống tích trữ vàng — không phải vô lý vì VND từng mất giá mạnh.</p>
+          <p><strong>Vai trò danh mục:</strong> 5-10% vàng trong danh mục giúp giảm rủi ro tổng thể. Vàng không sinh lợi (không có cổ tức, không có lãi) — giá trị đến từ việc người khác sẵn sàng trả nhiều tiền hơn trong tương lai.</p>
+          <p><strong>Cách tiếp cận:</strong> Vàng vật chất (SJC, DOJI) — an toàn nhất nhưng cần bảo quản. ETF vàng — tiện lợi hơn. Tránh "mua đỉnh" khi đã tăng mạnh và báo chí đưa tin nhiều.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📅</span> Dollar-Cost Averaging (DCA) — Chiến lược cho người bình thường</div>
+    <div class="card-body">
+      <p>DCA là đầu tư một số tiền cố định theo định kỳ (hàng tuần/tháng), bất kể giá thị trường. Khi giá thấp, mua được nhiều hơn. Khi giá cao, mua được ít hơn. Kết quả: <strong>giá trung bình thường thấp hơn so với mua một lần.</strong></p>
+      <p>Ưu điểm lớn nhất: <em>loại bỏ cảm xúc ra khỏi đầu tư</em>. Bạn không cần dự đoán đáy hay đỉnh thị trường — điều mà ngay cả chuyên gia cũng không làm được nhất quán.</p>
+      <p>Thiết lập đầu tư tự động 1-5 triệu/tháng vào ETF index — và để thời gian làm phần còn lại. Đơn giản nhưng hiệu quả đáng kinh ngạc.</p>
+    </div>
+  </div>
+
+  <div class="highlight amber">
+    <div class="hl-label">⚠️ Những điều cần tránh</div>
+    <p><strong>Market timing:</strong> "Tôi sẽ mua khi thị trường xuống" — hầu như không ai làm được nhất quán. Thời gian IN thị trường quan trọng hơn thời điểm vào thị trường.<br><br>
+    <strong>Hot tips và cổ phiếu "chắc thắng":</strong> Khi ai đó nói với bạn về cổ phiếu nào đó, thông tin đó đã là public và đã phản ánh vào giá.<br><br>
+    <strong>Đầu tư tiền vay:</strong> Margin trading, vay đầu tư chứng khoán — khuếch đại cả lợi nhuận lẫn thua lỗ. Phù hợp với chuyên gia, nguy hiểm với người mới.</p>
+  </div>
+</div>
+
+<!-- ── COMPOUND ── -->
+<div id="page-compound" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 08</div>
+    <h2>Lãi Kép & Sức Mạnh Thời Gian</h2>
+    <p class="lead">Albert Einstein được cho là đã gọi lãi kép là "kỳ quan thứ 8 của thế giới." Hiểu sâu sắc nguyên lý này là hiểu tại sao bắt đầu sớm một năm có thể có giá trị hàng trăm triệu đồng về sau.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔬</span> Lãi kép hoạt động thế nào?</div>
+    <div class="card-body">
+      <p>Lãi kép là <strong>lãi được tính trên cả tiền gốc lẫn tiền lãi đã tích lũy</strong>. Điều này tạo ra tăng trưởng theo hàm mũ, không phải tuyến tính.</p>
+    </div>
+    <div class="formula">FV = PV × (1 + r)ⁿ &nbsp;&nbsp;|&nbsp;&nbsp; Với đóng góp định kỳ: FV = PMT × [(1+r)ⁿ - 1] / r</div>
+    <div class="card-body">
+      <p>Trong đó: PV = tiền ban đầu, r = lãi suất mỗi kỳ, n = số kỳ, PMT = đóng góp định kỳ, FV = giá trị tương lai.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🧮</span> Máy tính Lãi Kép Tương Tác</div>
+    <div class="calc-grid">
+      <div class="calc-input-group">
+        <label class="calc-label">Tiền ban đầu (triệu VND)</label>
+        <input type="number" class="calc-input" id="ci-principal" value="50" min="0">
+      </div>
+      <div class="calc-input-group">
+        <label class="calc-label">Đóng thêm hàng tháng (triệu)</label>
+        <input type="number" class="calc-input" id="ci-monthly" value="5" min="0">
+      </div>
+      <div class="calc-input-group">
+        <label class="calc-label">Lãi suất mỗi năm (%)</label>
+        <input type="number" class="calc-input" id="ci-rate" value="10" min="0" max="100" step="0.5">
+      </div>
+      <div class="calc-input-group">
+        <label class="calc-label">Thời gian (năm)</label>
+        <input type="number" class="calc-input" id="ci-years" value="20" min="1" max="50">
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcCompound()">📊 Tính kết quả</button>
+    <div class="calc-result" id="ci-result" style="display:none;">
+      <div class="calc-result-row"><span>Tổng tiền đã bỏ vào:</span><span id="ci-invested">—</span></div>
+      <div class="calc-result-row"><span>Tiền lãi kiếm được:</span><span id="ci-interest">—</span></div>
+      <div class="calc-result-row"><span>🏆 Tổng tài sản cuối kỳ:</span><span id="ci-total">—</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">⏰</span> Tại sao bắt đầu sớm thay đổi tất cả</div>
+    <div class="card-body">
+      <p>Đây là ví dụ kinh điển về sức mạnh của thời gian (giả định 10%/năm, không đóng thêm hàng tháng):</p>
+    </div>
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr><th>Người</th><th>Đầu tư</th><th>Giai đoạn</th><th>Tổng bỏ vào</th><th>Kết quả lúc 65 tuổi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>An (sớm)</strong></td><td>2 triệu/tháng</td><td>25→35 tuổi (10 năm)</td><td class="gold">240 triệu</td><td class="green">~7,8 tỷ</td></tr>
+          <tr><td><strong>Bình (muộn)</strong></td><td>2 triệu/tháng</td><td>35→65 tuổi (30 năm)</td><td class="gold">720 triệu</td><td class="green">~4,5 tỷ</td></tr>
+          <tr><td><strong>Cường (rất sớm)</strong></td><td>2 triệu/tháng</td><td>20→65 tuổi (45 năm)</td><td class="gold">1,08 tỷ</td><td class="green">~23,4 tỷ</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body" style="margin-top:12px;">
+      <p>An đầu tư <em>ít hơn 3 lần</em> so với Bình nhưng kết quả <em>nhiều hơn 73%</em>. Đây là sức mạnh của thời gian và lãi kép.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">72</span> Quy tắc 72</div>
+    <div class="card-body">
+      <p>Cách tính nhanh thời gian để tiền tăng gấp đôi:</p>
+      <div class="formula">Số năm để gấp đôi = 72 ÷ Lãi suất (%/năm)</div>
+      <p>Ví dụ: Lãi suất 6%/năm → 72 ÷ 6 = <strong>12 năm</strong> để tiền gấp đôi. Lãi suất 10%/năm → 72 ÷ 10 = <strong>7,2 năm</strong>. Lãi suất 3%/năm (tiết kiệm thông thường) → 72 ÷ 3 = <strong>24 năm</strong>.</p>
+      <p>Quy tắc này cũng áp dụng ngược lại: nợ thẻ tín dụng 24%/năm → 72 ÷ 24 = <strong>3 năm</strong> để nợ gấp đôi nếu bạn không trả!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── INSURANCE ── -->
+<div id="page-insurance" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 09</div>
+    <h2>Bảo Hiểm</h2>
+    <p class="lead">Bảo hiểm không phải đầu tư — là công cụ quản lý rủi ro. Mục đích là bảo vệ tài sản đã tích lũy khỏi những sự kiện thảm họa có xác suất thấp nhưng chi phí cực kỳ cao.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> Nguyên tắc bảo hiểm cơ bản</div>
+    <div class="card-body">
+      <p>Mua bảo hiểm cho những rủi ro bạn <strong>không thể tự gánh chịu tài chính</strong>. Không mua cho những thứ bạn có thể tự xử lý từ quỹ khẩn cấp.</p>
+      <p><strong>Nên mua bảo hiểm khi:</strong> Chi phí tiềm năng cao (tai nạn nặng, ung thư, hỏa hoạn), xác suất xảy ra không thể bỏ qua, và bạn không đủ tài chính để tự trả nếu xảy ra.</p>
+      <p><strong>Không nên mua bảo hiểm cho:</strong> Rủi ro nhỏ có thể xử lý từ quỹ khẩn cấp (điện thoại vỡ, thiết bị hỏng nhỏ).</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🏥</span> Bảo hiểm y tế (Ưu tiên #1)</div>
+      <div class="card-body">
+        <p>Chi phí y tế là nguyên nhân phá sản tài chính phổ biến nhất. Một ca ung thư, tai nạn nặng, hay phẫu thuật phức tạp có thể tốn 500 triệu – 2 tỷ đồng.</p>
+        <p><strong>Nền tảng:</strong> BHYT Nhà nước (bắt buộc) + Bảo hiểm sức khỏe tư nhân (bổ sung cho phần vượt trội, phòng riêng, thuốc biệt dược, nước ngoài).</p>
+        <p><strong>Lưu ý khi chọn:</strong> Đọc kỹ danh sách bệnh loại trừ. Chú ý thời gian chờ (waiting period). So sánh mức thanh toán thực tế, không chỉ phí bảo hiểm.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">👨‍👩‍👧</span> Bảo hiểm nhân thọ</div>
+      <div class="card-body">
+        <p>Cần mua nếu: có người phụ thuộc tài chính vào bạn (vợ/chồng, con nhỏ, cha mẹ). Nếu bạn độc thân, không có người phụ thuộc — bảo hiểm nhân thọ ít cần thiết hơn.</p>
+        <p><strong>Bảo hiểm thuần túy (Term Life) vs. Bảo hiểm đầu tư (Universal Life):</strong></p>
+        <p>Term Life: mua bảo vệ rủi ro chết sớm, phí thấp. Nên chọn term life + tự đầu tư phần tiền tiết kiệm được.</p>
+        <p>Bảo hiểm nhân thọ kết hợp đầu tư: phức tạp, phí quản lý cao, lợi nhuận thường kém hơn tự đầu tư độc lập.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🚗</span> Bảo hiểm xe & tài sản</div>
+      <div class="card-body">
+        <p><strong>Bảo hiểm TNDS xe máy/ô tô:</strong> bắt buộc theo pháp luật. Bao gồm thiệt hại cho bên thứ ba (người đi đường bị tai nạn do lỗi của bạn).</p>
+        <p><strong>Bảo hiểm thân xe:</strong> tùy chọn nhưng quan trọng nếu xe mới hoặc giá trị cao. Bảo hiểm toàn bộ (comprehensive) bao gồm va chạm, trộm cắp, thiên tai.</p>
+        <p><strong>Bảo hiểm nhà:</strong> ít phổ biến ở VN nhưng cực kỳ quan trọng — hỏa hoạn, lũ lụt, sụt lún có thể xóa sổ tài sản hàng tỷ đồng.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">♿</span> Bảo hiểm tai nạn & thu nhập</div>
+      <div class="card-body">
+        <p><strong>Bảo hiểm tai nạn cá nhân:</strong> chi phí thấp, quyền lợi tốt cho tai nạn dẫn đến tàn tật, mất khả năng lao động tạm thời. Nên mua cho cả gia đình.</p>
+        <p><strong>Bảo hiểm bệnh hiểm nghèo (Critical Illness):</strong> trả một lần khi được chẩn đoán ung thư, đột quỵ, nhồi máu cơ tim... Cho phép bạn tập trung điều trị, không lo tài chính.</p>
+        <p><strong>Disability Insurance:</strong> phổ biến ở phương Tây, bảo vệ thu nhập khi không thể làm việc. Ở VN, ít phổ biến hơn nhưng đang phát triển.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight blue">
+    <div class="hl-label">💡 Mẹo mua bảo hiểm thông minh</div>
+    <p>Tăng mức khấu trừ (deductible) để giảm phí bảo hiểm hàng năm — tiết kiệm phần chênh lệch vào quỹ khẩn cấp để tự trả phần khấu trừ. Đánh giá lại bảo hiểm mỗi 2-3 năm hoặc khi có thay đổi lớn trong cuộc sống (kết hôn, sinh con, mua nhà, đổi việc). <strong>Không mua bảo hiểm từ người bạn muốn giúp đỡ — mua vì sản phẩm thực sự phù hợp nhu cầu.</strong></p>
+  </div>
+</div>
+
+<!-- ── TAX ── -->
+<div id="page-tax" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 10</div>
+    <h2>Thuế & Tối Ưu Thuế</h2>
+    <p class="lead">Thuế là chi phí lớn nhất trong cuộc đời nhiều người. Tối ưu thuế hợp pháp không phải trốn thuế — là dùng đúng các quy định của pháp luật để giữ lại nhiều tiền hơn cho bản thân.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span> Thuế thu nhập cá nhân tại Việt Nam</div>
+    <div class="card-body">
+      <p>Thuế TNCN theo biểu thuế lũy tiến — thu nhập càng cao, tỷ lệ thuế càng cao trên phần vượt ngưỡng:</p>
+    </div>
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr><th>Thu nhập tính thuế/tháng</th><th>Thuế suất</th><th>Ví dụ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Đến 5 triệu</td><td class="green">5%</td><td>Thuế tối đa 250k</td></tr>
+          <tr><td>5 – 10 triệu</td><td class="green">10%</td><td>Thuế tối đa 500k trên bậc này</td></tr>
+          <tr><td>10 – 18 triệu</td><td class="gold">15%</td><td>Thuế tối đa 1,2 triệu trên bậc này</td></tr>
+          <tr><td>18 – 32 triệu</td><td class="gold">20%</td><td>Thuế tối đa 2,8 triệu trên bậc này</td></tr>
+          <tr><td>32 – 52 triệu</td><td class="amber">25%</td><td>Thuế tối đa 5 triệu trên bậc này</td></tr>
+          <tr><td>52 – 80 triệu</td><td class="red">30%</td><td>Thuế tối đa 8,4 triệu trên bậc này</td></tr>
+          <tr><td>Trên 80 triệu</td><td class="red">35%</td><td>35% toàn bộ phần vượt 80 triệu</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body" style="margin-top:12px;">
+      <p><em>Lưu ý: Thu nhập tính thuế = Thu nhập chịu thuế − Giảm trừ gia cảnh (11 triệu/tháng cho bản thân + 4,4 triệu/người phụ thuộc)</em></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔽</span> Giảm thiểu thuế hợp pháp</div>
+    <div class="card-body">
+      <ul class="bul-list">
+        <li><strong>Đăng ký người phụ thuộc đầy đủ:</strong> Cha mẹ già không có thu nhập, con nhỏ — mỗi người giảm 4,4 triệu/tháng thu nhập tính thuế. Nhiều người quên đăng ký và mất đi khoản giảm trừ đáng kể.</li>
+        <li><strong>Bảo hiểm xã hội tự nguyện (với freelancer):</strong> Đóng BHXH tự nguyện vừa bảo vệ về sau vừa được khấu trừ hợp pháp.</li>
+        <li><strong>Hóa đơn chi phí (với kinh doanh/freelance):</strong> Mọi chi phí hợp lý, hợp lệ liên quan đến hoạt động kinh doanh có thể được khấu trừ trước khi tính thuế. Giữ hóa đơn đầy đủ.</li>
+        <li><strong>Quyết toán thuế và hoàn thuế:</strong> Nhiều người được hoàn thuế nhưng không biết hoặc ngại làm. Với khoản khấu trừ lớn trong năm (nghỉ việc, người phụ thuộc mới), quyết toán có thể nhận lại vài triệu.</li>
+        <li><strong>Thuế đầu tư chứng khoán:</strong> Thuế 0,1% trên mỗi lần bán (tính trên giá trị bán). DCA dài hạn, giảm số lần giao dịch — giảm phí và thuế.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight gold">
+    <div class="hl-label">💡 Nguyên tắc quan trọng</div>
+    <p><strong>Tối ưu thuế (Tax Optimization) khác với Trốn thuế (Tax Evasion).</strong> Một là hợp pháp và thông minh, một là vi phạm pháp luật. Hãy tận dụng tất cả các ưu đãi và khấu trừ thuế mà pháp luật cho phép. Khi thu nhập lớn hơn, làm việc với kế toán hoặc tư vấn thuế chuyên nghiệp — chi phí họ thường thấp hơn số tiền họ giúp bạn tiết kiệm.</p>
+  </div>
+</div>
+
+<!-- ── RETIREMENT ── -->
+<div id="page-retirement" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 11</div>
+    <h2>Nghỉ Hưu & FIRE</h2>
+    <p class="lead">Tự do tài chính không nhất thiết là nghỉ hưu lúc 65 tuổi. Phong trào FIRE (Financial Independence, Retire Early) cho thấy với tỷ lệ tiết kiệm cao và đầu tư đúng, bạn có thể tự do tài chính ở tuổi 40, 45, thậm chí sớm hơn.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> Con số "Tự do tài chính" — The FIRE Number</div>
+    <div class="card-body">
+      <p>Dựa trên <strong>Quy tắc 4%</strong> từ nghiên cứu Trinity Study: danh mục đầu tư đa dạng có thể rút 4%/năm trong 30+ năm mà không cạn kiệt (trong hầu hết các kịch bản lịch sử).</p>
+    </div>
+    <div class="formula">FIRE Number = Chi tiêu hàng năm × 25 &nbsp;&nbsp;|&nbsp;&nbsp; Hoặc: Chi tiêu hàng năm ÷ 4%</div>
+    <div class="card-body" style="margin-top:12px;">
+      <p><strong>Ví dụ thực tế:</strong> Bạn cần 20 triệu/tháng để sống thoải mái = 240 triệu/năm. FIRE Number = 240 triệu × 25 = <em>6 tỷ đồng</em>. Đây là mức tài sản đầu tư (không tính nhà ở) cần để về hưu theo quy tắc 4%.</p>
+      <p>Tăng chi tiêu hoặc muốn an toàn hơn (30-40 năm) → nhân với 30-33 thay vì 25 (3% rút thay vì 4%).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔥</span> Các loại FIRE</div>
+    <div class="card-body">
+      <div class="grid-3">
+        <div style="background:var(--blue-dim);border:1px solid #2A4A6A;border-radius:8px;padding:16px;">
+          <div style="color:var(--blue);font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;margin-bottom:8px;">LEAN FIRE</div>
+          <p style="font-size:13px;color:var(--text-soft);">Sống tiết kiệm, chi tiêu tối thiểu. FIRE Number thấp (~1-2 tỷ). Đòi hỏi sống đơn giản cả sau khi nghỉ hưu.</p>
+        </div>
+        <div style="background:var(--gold-dim);border:1px solid #5A4A20;border-radius:8px;padding:16px;">
+          <div style="color:var(--gold);font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;margin-bottom:8px;">REGULAR FIRE</div>
+          <p style="font-size:13px;color:var(--text-soft);">Sống thoải mái, không xa xỉ. FIRE Number ~3-6 tỷ. Phổ biến nhất và thực tế nhất với đại đa số.</p>
+        </div>
+        <div style="background:var(--green-dim);border:1px solid var(--green-soft);border-radius:8px;padding:16px;">
+          <div style="color:var(--green);font-size:10px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;margin-bottom:8px;">FAT FIRE</div>
+          <p style="font-size:13px;color:var(--text-soft);">Sống thoải mái, sang trọng. FIRE Number 10-20+ tỷ. Cần thu nhập và tiết kiệm cao hơn đáng kể.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🗓️</span> Kế hoạch nghỉ hưu thực tế</div>
+    <div class="card-body">
+      <ol class="num-list">
+        <li><strong>Tính FIRE Number của bạn:</strong> Chi tiêu tháng hiện tại × 12 × 25. Nhớ tính thêm chi phí y tế tăng lên khi lớn tuổi, du lịch, hobby.</li>
+        <li><strong>Tính khoảng cách hiện tại:</strong> FIRE Number − Net Worth hiện tại = Số tiền cần tích lũy thêm.</li>
+        <li><strong>Tính thời gian:</strong> Với mức tiết kiệm và lãi suất hiện tại, bao nhiêu năm để đạt FIRE Number? Dùng máy tính compound ở trên.</li>
+        <li><strong>Đa dạng hóa nguồn thu nhập hưu trí:</strong> BHXH, đầu tư cổ phiếu/ETF, bất động sản cho thuê, thu nhập thụ động từ sáng tạo nội dung / sản phẩm số.</li>
+        <li><strong>Chuẩn bị cho lạm phát:</strong> 5% lạm phát/năm trong 30 năm có nghĩa tiền mua được ít hơn 75%. Danh mục đầu tư cần tăng trưởng vượt lạm phát.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="highlight green">
+    <div class="hl-label">✅ FIRE không phải không làm gì</div>
+    <p>Nhiều người đạt FIRE vẫn tiếp tục làm việc — nhưng theo <strong>điều kiện của họ</strong>. Làm vì đam mê, không vì cần tiền. FIRE thực ra là <strong>Financial Independence</strong> (tự do tài chính) — quyền lựa chọn, không phải nghỉ hưu bắt buộc. Khi không cần lo tiền, bạn mới thực sự tự do chọn cách sống.</p>
+  </div>
+</div>
+
+<!-- ── REAL ESTATE ── -->
+<div id="page-realestate" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Chương 12</div>
+    <h2>Bất Động Sản</h2>
+    <p class="lead">Bất động sản là tài sản người Việt Nam yêu thích nhất — và không phải vô lý. Nhưng đầu tư BĐS đúng cách và "lướt sóng" BĐS theo đám đông là hai thứ hoàn toàn khác nhau.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏠</span> Mua nhà hay thuê? — Câu hỏi không có đáp án chung</div>
+    <div class="card-body">
+      <p>Câu trả lời phụ thuộc vào tình huống cá nhân, không phải "mua nhà luôn tốt hơn thuê" như nhiều người nghĩ:</p>
+    </div>
+    <div class="grid-2" style="margin-top:16px;">
+      <div style="background:var(--green-dim);border:1px solid var(--green-soft);border-radius:10px;padding:20px;">
+        <div style="color:var(--green);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:12px;">NÊN MUA KHI...</div>
+        <ul class="bul-list">
+          <li>Dự định ở ≥7-10 năm tại một địa điểm</li>
+          <li>Đủ tài chính (tiền cọc 20-30%, dự phòng)</li>
+          <li>Thu nhập ổn định, tỷ lệ vay/thu nhập an toàn</li>
+          <li>Chi phí mua nhà thấp hơn hoặc bằng thuê tương đương</li>
+          <li>Muốn sự ổn định, không bị đuổi, tùy ý cải tạo</li>
+        </ul>
+      </div>
+      <div style="background:var(--blue-dim);border:1px solid #2A4A6A;border-radius:10px;padding:20px;">
+        <div style="color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:12px;">NÊN THUÊ KHI...</div>
+        <ul class="bul-list">
+          <li>Chưa chắc ở đâu trong 5 năm tới</li>
+          <li>Thị trường BĐS đang overvalued so với thu nhập</li>
+          <li>Vay quá nhiều → áp lực tài chính lớn</li>
+          <li>Tiền cọc có thể đầu tư sinh lời tốt hơn</li>
+          <li>Muốn linh hoạt địa lý (đổi việc, cơ hội mới)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📐</span> Price-to-Rent Ratio — Công cụ đánh giá thị trường</div>
+    <div class="card-body">
+      <div class="formula">P/R Ratio = Giá mua nhà ÷ Tiền thuê hàng năm</div>
+      <p style="margin-top:12px;">Ví dụ: Căn hộ giá 3 tỷ, thuê 8 triệu/tháng = 96 triệu/năm. P/R = 3 tỷ ÷ 96 triệu = <strong>31.25</strong></p>
+    </div>
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead><tr><th>P/R Ratio</th><th>Ý nghĩa</th><th>Gợi ý</th></tr></thead>
+        <tbody>
+          <tr><td>&lt; 15</td><td>Thị trường rẻ</td><td class="green">Nghiêng về mua</td></tr>
+          <tr><td>15 – 20</td><td>Cân bằng</td><td class="gold">Tùy hoàn cảnh</td></tr>
+          <tr><td>20 – 30</td><td>Khá đắt</td><td class="amber">Nghiêng về thuê</td></tr>
+          <tr><td>&gt; 30</td><td>Đắt / Bong bóng</td><td class="red">Nên thuê hoặc chờ</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body" style="margin-top:12px;">
+      <p>Hà Nội và TP.HCM hiện có P/R ratio cao (25-40+ tùy khu vực và thời điểm), cho thấy giá nhà đang ở mức tương đối cao so với thu nhập. Không có nghĩa là không nên mua — nhưng cần tính toán kỹ hơn.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">💰</span> BĐS Đầu Tư — Nguyên tắc Cash Flow</div>
+    <div class="card-body">
+      <p>BĐS đầu tư tốt khi dòng tiền thuê <strong>dương sau tất cả chi phí</strong>. Nhiều người mua BĐS cho thuê nhưng thực tế đang âm dòng tiền và chờ tăng giá — đây là đầu cơ, không phải đầu tư.</p>
+      <div class="formula">Cash-on-Cash Return = (Thu nhập thuê ròng hàng năm ÷ Tiền mặt bỏ vào) × 100%</div>
+      <p style="margin-top:12px;"><strong>Thu nhập thuê ròng = Tiền thuê − Chi phí quản lý − Bảo trì − Phí HOA − Lãi vay − Thuế − Bảo hiểm − Trống phòng (~5-10%)</strong></p>
+      <p>Nếu bạn bỏ 1 tỷ tiền mặt mua nhà (còn lại vay), thu nhập thuê ròng 60 triệu/năm → Cash-on-Cash = 6% — so sánh với lãi tiết kiệm ngân hàng và lợi nhuận cổ phiếu để quyết định có xứng đáng không.</p>
+    </div>
+  </div>
+
+  <div class="highlight amber">
+    <div class="hl-label">⚠️ Các bẫy BĐS phổ biến tại Việt Nam</div>
+    <p><strong>Vay quá nhiều:</strong> Tỷ lệ vay &gt;70% giá trị nhà trong điều kiện lãi suất cao (8-12%/năm) tạo áp lực tài chính lớn. Chuẩn an toàn: trả nợ ≤ 30-35% thu nhập hàng tháng.<br><br>
+    <strong>"Lướt sóng" theo đám đông:</strong> Mua khi báo chí đăng tải nhiều, giá đã tăng — nguy cơ mua đỉnh. BĐS kém thanh khoản hơn cổ phiếu rất nhiều, khó thoát nhanh khi cần.<br><br>
+    <strong>Dự án chưa có sổ đỏ/pháp lý chưa rõ:</strong> Rủi ro cao dù giá thường hấp dẫn. Kiểm tra pháp lý kỹ trước khi đặt cọc.</p>
+  </div>
+</div>
+
+<!-- ── GOLDEN RULES ── -->
+<div id="page-rules" class="page">
+  <div class="section-header">
+    <div class="eyebrow">Tổng kết</div>
+    <h2>Quy Tắc Vàng</h2>
+    <p class="lead">Nếu chỉ nhớ một số ít nguyên tắc từ toàn bộ cẩm nang này, hãy nhớ những điều sau. Đây là 80/20 của tài chính cá nhân — 20% kiến thức tạo ra 80% kết quả.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">①</span> Sống dưới mức thu nhập</div>
+      <div class="card-body">
+        <p>Luôn <strong>chi tiêu ít hơn kiếm được</strong>. Khoảng cách giữa thu nhập và chi tiêu là nguồn gốc của mọi sự giàu có. Không có khoảng cách này, mọi thu nhập đều biến mất.</p>
+        <p>Dù thu nhập bao nhiêu, nếu chi tiêu bằng hoặc nhiều hơn — bạn đang "nghèo". Thu nhập 100 triệu tiêu 100 triệu không khác gì thu nhập 10 triệu tiêu 10 triệu về tốc độ xây dựng tài sản.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">②</span> Trả cho bản thân trước</div>
+      <div class="card-body">
+        <p><strong>Tự động hóa tiết kiệm/đầu tư ngay khi lương về</strong>, trước khi chi bất cứ thứ gì. Thiết lập transfer tự động — loại bỏ ý chí ra khỏi phương trình.</p>
+        <p>Mục tiêu tối thiểu: 20% thu nhập. Nếu chưa làm được, bắt đầu từ 5-10% và tăng dần mỗi khi lương tăng.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">③</span> Xây quỹ khẩn cấp trước</div>
+      <div class="card-body">
+        <p>Trước khi đầu tư bất cứ thứ gì, xây dựng <strong>3-6 tháng chi phí trong tài khoản an toàn</strong>. Không có quỹ này, một sự cố nhỏ có thể xóa sổ năm tiết kiệm.</p>
+        <p>Quỹ khẩn cấp là nền móng. Không có nền móng vững, mọi thứ xây trên đó đều bất ổn.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">④</span> Triệt tiêu nợ lãi suất cao</div>
+      <div class="card-body">
+        <p>Không đầu tư khi còn nợ thẻ tín dụng (20-30%/năm). <strong>Trả nợ lãi cao = đầu tư đảm bảo 20-30%/năm</strong> — không khoản đầu tư nào an toàn hơn.</p>
+        <p>Thứ tự ưu tiên: Quỹ khẩn cấp nhỏ → Trả nợ lãi cao → Đầu tư dài hạn.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">⑤</span> Đầu tư sớm, đầu tư đều, giữ lâu</div>
+      <div class="card-body">
+        <p>Bắt đầu sớm hơn một năm có thể đáng giá nhiều hơn tăng số tiền đầu tư 20%. DCA hàng tháng vào <strong>index fund đa dạng, chi phí thấp</strong>. Không cố gắng time thị trường.</p>
+        <p>"Time in the market beats timing the market."</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">⑥</span> Bảo hiểm cho thảm họa</div>
+      <div class="card-body">
+        <p>Mua bảo hiểm y tế tốt. Nếu có người phụ thuộc, mua bảo hiểm nhân thọ. <strong>Không để một sự kiện xấu xóa sạch tài sản tích lũy nhiều năm</strong>.</p>
+        <p>Bảo hiểm là chi phí bảo vệ kế hoạch tài chính, không phải chi tiêu lãng phí.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">⑦</span> Tránh lifestyle inflation</div>
+      <div class="card-body">
+        <p>Khi thu nhập tăng, <strong>không nâng cấp lối sống theo cùng tỷ lệ</strong>. Dùng phần lớn tiền tăng thêm để đầu tư. Cho phép một phần nhỏ cải thiện chất lượng sống sau ít nhất 6 tháng.</p>
+        <p>"Pretend you earn less than you do" — sống như thu nhập thấp hơn thực tế.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--gold);border-width:1.5px;">
+      <div class="card-title"><span class="icon">⑧</span> Không so sánh với người khác</div>
+      <div class="card-body">
+        <p>"Keeping up with the Joneses" — cố gắng sống bằng tiêu chuẩn của hàng xóm — là <strong>con đường chắc chắn đến phá sản tài chính</strong>. Người đi xe sang, mặc đồ hiệu bạn thấy có thể đang nợ ngập đầu.</p>
+        <p>So sánh duy nhất có giá trị: bạn hôm nay vs bạn một năm trước.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top:32px;">
+    <p>"Tự do tài chính không phải có nhiều tiền nhất. Đó là có đủ tiền để không phải lo về tiền."</p>
+    <cite>— Suze Orman</cite>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="icon">📚</span> Sách nên đọc</div>
+    <div class="card-body">
+      <div class="grid-2">
+        <ul class="bul-list">
+          <li><strong>The Psychology of Money</strong> — Morgan Housel (dễ đọc nhất)</li>
+          <li><strong>Rich Dad Poor Dad</strong> — Robert Kiyosaki (tư duy tài sản)</li>
+          <li><strong>The Millionaire Next Door</strong> — Stanley & Danko (nghiên cứu thực tế)</li>
+          <li><strong>I Will Teach You To Be Rich</strong> — Ramit Sethi (thực hành)</li>
+          <li><strong>The Little Book of Common Sense Investing</strong> — Bogle (index fund)</li>
+        </ul>
+        <ul class="bul-list">
+          <li><strong>Your Money or Your Life</strong> — Vicki Robin (triết học FIRE)</li>
+          <li><strong>The Richest Man in Babylon</strong> — George Clason (cổ điển)</li>
+          <li><strong>A Random Walk Down Wall Street</strong> — Malkiel (thị trường)</li>
+          <li><strong>Die With Zero</strong> — Bill Perkins (cân bằng tiêu dùng)</li>
+          <li><strong>Dạy Con Làm Giàu</strong> — Kiyosaki (bản tiếng Việt phổ biến)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ── NAVIGATION ─────────────────────────────────────────────────────────────
+function navigate(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) {
+    page.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  const navItem = document.querySelector('[data-page="' + pageId + '"]');
+  if (navItem) navItem.classList.add('active');
+  // close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlayBg').classList.remove('show');
+}
+
+// ── MOBILE SIDEBAR ─────────────────────────────────────────────────────────
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlayBg').classList.toggle('show');
+});
+document.getElementById('overlayBg').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlayBg').classList.remove('show');
+});
+
+// ── ACCORDION ──────────────────────────────────────────────────────────────
+function toggleAcc(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+// ── COMPOUND CALCULATOR ────────────────────────────────────────────────────
+function calcCompound() {
+  const principal = parseFloat(document.getElementById('ci-principal').value) || 0;
+  const monthly = parseFloat(document.getElementById('ci-monthly').value) || 0;
+  const annualRate = parseFloat(document.getElementById('ci-rate').value) / 100;
+  const years = parseInt(document.getElementById('ci-years').value) || 0;
+
+  const monthlyRate = annualRate / 12;
+  const months = years * 12;
+
+  let fv = principal * Math.pow(1 + monthlyRate, months);
+  if (monthlyRate > 0) {
+    fv += monthly * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+  } else {
+    fv += monthly * months;
+  }
+
+  const totalInvested = principal + monthly * months;
+  const interest = fv - totalInvested;
+
+  const fmt = (n) => {
+    if (n >= 1000) return (n/1000).toFixed(2) + ' tỷ';
+    return n.toFixed(1) + ' triệu';
+  };
+
+  document.getElementById('ci-invested').textContent = fmt(totalInvested);
+  document.getElementById('ci-interest').textContent = fmt(interest);
+  document.getElementById('ci-total').textContent = fmt(fv);
+  document.getElementById('ci-result').style.display = 'block';
+}
+
+// Auto-calc on load
+calcCompound();
+</script>
+</body>
+</html>
